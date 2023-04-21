@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutsModule } from './layouts/layouts.module';
 import { TemplateModule } from './template/template.module';
 import { DashboardModule } from './components/dashboard/dashboard.module';
+import { AuthModule } from './auth/auth.module';
 const routes: Routes = [
   {
     path: '',
@@ -20,7 +21,12 @@ const routes: Routes = [
   {
     path: 'layouts',
     loadChildren: () => import('./layouts/layouts.module').then( m => m.LayoutsModule)
-  }
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule)
+  },
+  
 ];
 
 @NgModule({
