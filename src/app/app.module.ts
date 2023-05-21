@@ -3,8 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './layouts/header/header.component';
+import { AuthModule } from './auth/auth.module';
 import { FooterComponent } from './layouts/footer/footer.component';
+import { HeaderComponent } from './layouts/header/header.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SidebarComponent } from './layouts/sidebar/sidebar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

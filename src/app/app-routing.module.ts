@@ -1,32 +1,36 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthModule } from './auth/auth.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
 import { LayoutsModule } from './layouts/layouts.module';
 import { TemplateModule } from './template/template.module';
-import { DashboardModule } from './components/dashboard/dashboard.module';
-import { AuthModule } from './auth/auth.module';
+
 const routes: Routes = [
   {
-    path: '',
+    path: '', // Default route
     redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./components/dashboard/dashboard.module').then( m => m.DashboardModule)
+    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)
+    // Lazy loading of DashboardModule when accessing '/dashboard'
   },
   {
     path: 'templates',
-    loadChildren: () => import('./template/template.module').then( m => m.TemplateModule)
+    loadChildren: () => import('./template/template.module').then(m => m.TemplateModule)
+    // Lazy loading of TemplateModule when accessing '/templates'
   },
   {
     path: 'layouts',
-    loadChildren: () => import('./layouts/layouts.module').then( m => m.LayoutsModule)
+    loadChildren: () => import('./layouts/layouts.module').then(m => m.LayoutsModule)
+    // Lazy loading of LayoutsModule when accessing '/layouts'
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    // Lazy loading of AuthModule when accessing '/auth'
   },
-  
 ];
 
 @NgModule({
