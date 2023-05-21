@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class HelperService {
   showhideheadsidefoot = true; 
-
   constructor() { }
+
 }
