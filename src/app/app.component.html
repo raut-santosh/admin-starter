@@ -1,4 +1,4 @@
-<app-header></app-header>
-<app-sidebar></app-sidebar>
+<app-header *ngIf="helperService.showhideheadsidefoot"></app-header>
+<app-sidebar *ngIf="helperService.showhideheadsidefoot"></app-sidebar>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-footer *ngIf="helperService.showhideheadsidefoot"></app-footer>
