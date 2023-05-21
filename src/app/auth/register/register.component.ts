@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, Subscription, interval } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper/helper.service';
 @Component({
   selector: 'app-register',
@@ -8,36 +10,79 @@ import { HelperService } from 'src/app/services/helper/helper.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  timer!: number; // Timer value in seconds
+  countdown!: Observable<number>;
+  countdownSubscription!: Subscription;
+  isResendDisabled!: boolean;
+
   model: any = {};
   is_otpgenrated: boolean = false;
-  constructor(public helperService: HelperService, public apiService: ApiService, private router: Router){
+  constructor(public helperService: HelperService, public apiService: ApiService, private router: Router, private authService: AuthService){
     this.helperService.showhideheadsidefoot = false;
-
+    this.timer = 60; // Initial timer value in seconds
+    this.isResendDisabled = false; // Resend button status
   }
   ngOnInit(){
   }
 
-  formSubmit($event: any){
-    let endpoint = 'AUTH_REGISTER';
-    if(this.is_otpgenrated){
-      endpoint = 'VERIFY_OTP';
+  startTimer(): void {
+    this.isResendDisabled = true; // Disable the resend button
+
+    // Create an observable that emits a value every second
+    this.countdown = interval(1000);
+
+    // Subscribe to the observable and update the timer value
+    this.countdownSubscription = this.countdown.subscribe(() => {
+      this.timer--;
+
+      if (this.timer <= 0) {
+        this.stopTimer();
+        this.isResendDisabled = false; // Enable the resend button
+      }
+    });
+  }
+
+  stopTimer(): void {
+    // Unsubscribe from the countdown observable and reset the timer
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
     }
-    this.apiService.request(endpoint, this.model).subscribe(
-      (response) => {
-        // Handle the response data
-        if(endpoint == 'AUTH_REGISTER'){
+
+    this.timer = 60; // Reset the timer value
+  }
+
+  formSubmit($event: any){
+    let functionName = 'register';
+    if(this.is_otpgenrated){
+      functionName = 'verifyOtp';
+    }
+    (this.authService as any)[functionName](this.model).subscribe(
+      (response:any) => {
+        if(functionName == 'register'){
           this.is_otpgenrated = true;
+          this.startTimer(); // Start the timer
         }else{
           this.helperService.showhideheadsidefoot = true;
           this.router.navigate(['dashboard']);
         }
         console.log(response);
       },
-      (error) => {
-        // Handle the error
+      (error:any) => {
         console.log(error);
       }
-    );
+    )
+  }
+  resendOtp(){
+    this.isResendDisabled = true; // Disable the resend button
+    this.authService.resendOtp(this.model).subscribe(
+      (response:any) => {
+        this.startTimer();
+        console.log(response);
+      },
+      (error:any) => {
+        console.log(error);
+      }
+    )
   }
 
 }

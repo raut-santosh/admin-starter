@@ -14,6 +14,7 @@ export class ApiService {
     BLOG_LIST: { endpoint: 'blog/list', method: 'get' },
     BLOG_ADDEDIT: { endpoint: 'blog/addedit', method: 'post' },
     AUTH_REGISTER: { endpoint: 'auth/register', method: 'post' },
+    AUTH_LOGIN: { endpoint: 'auth/login', method: 'post' },
     VERIFY_OTP: { endpoint: 'auth/verifyotp', method: 'post' },
     RESEND_OTP: { endpoint: 'auth/resendotp', method: 'post' },
   }
