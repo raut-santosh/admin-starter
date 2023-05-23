@@ -40,7 +40,7 @@ export class AuthService {
       .pipe(
         map((data) => {
           if (data && data.token) {
-            this._syncUser(data);
+            this._syncUser({token: data.token});
           }
           return data;
         })
@@ -56,7 +56,7 @@ export class AuthService {
       .pipe(
         map((data) => {
           if (data && data.token) {
-            this._syncUser(data.token);
+            this._syncUser({token: data.token});
           }
           return data;
         })
@@ -71,7 +71,7 @@ export class AuthService {
       .pipe(
         map((data) => {
           if (data && data.token) {
-            this._syncUser(data.token);
+            this._syncUser({token: data.token});
           }
           return data;
         })
@@ -86,7 +86,7 @@ export class AuthService {
       .pipe(
         map((data) => {
           if (data && data.token) {
-            this._syncUser(data.token);
+            this._syncUser({token: data.token});
             console.log(data);
           }
           return data;
@@ -123,6 +123,5 @@ export class AuthService {
       this.currentUserSubject.next(data);
     }
     return true;
-    
   }
 }

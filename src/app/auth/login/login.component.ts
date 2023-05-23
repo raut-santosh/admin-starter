@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper/helper.service';
 @Component({
   selector: 'app-login',
@@ -6,12 +8,23 @@ import { HelperService } from 'src/app/services/helper/helper.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
-  constructor(private helperService:HelperService){
-    
+  model: any = {};
+  constructor(private helperService:HelperService, private authService:AuthService, private router:Router){
+    this.helperService.showhideheadsidefoot = false; 
   }
   ngOnInit(){
-    this.helperService.showhideheadsidefoot = false; 
+  }
+
+  login(){
+    this.authService.login(this.model).subscribe(
+      (response:any) => {
+        console.log(response);
+        this.router.navigate(['/dashboard']);
+      },
+      (error:any) => {
+        console.log(error);
+      }
+    )
   }
 
 }

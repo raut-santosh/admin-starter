@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { AuthGuard } from './services/auth/auth.guard';
 import { AuthService } from './services/auth/auth.service';
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { AuthService } from './services/auth/auth.service';
     AuthModule,
     FormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

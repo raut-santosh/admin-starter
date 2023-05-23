@@ -78,6 +78,7 @@ export class RegisterComponent {
       (response:any) => {
         this.startTimer();
         console.log(response);
+
       },
       (error:any) => {
         console.log(error);

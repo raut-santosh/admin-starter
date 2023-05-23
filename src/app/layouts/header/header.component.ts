@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper/helper.service';
 @Component({
   selector: 'app-header',
@@ -6,5 +7,8 @@ import { HelperService } from 'src/app/services/helper/helper.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(public helperService: HelperService){}
+  constructor(public helperService: HelperService, private authService: AuthService){}
+  logout(){
+    this.authService.logout();
+  }
 }
