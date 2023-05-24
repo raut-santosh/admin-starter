@@ -20,9 +20,11 @@ export class LoginComponent {
       (response:any) => {
         console.log(response);
         this.router.navigate(['/dashboard']);
+        this.helperService.presentToast('success', 'Login Success')
       },
       (error:any) => {
         console.log(error);
+        this.helperService.presentToast('error',error.error.error.msg);
       }
     )
   }

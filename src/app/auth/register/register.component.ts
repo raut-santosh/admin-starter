@@ -61,14 +61,17 @@ export class RegisterComponent {
         if(functionName == 'register'){
           this.is_otpgenrated = true;
           this.startTimer(); // Start the timer
+          this.helperService.presentToast('info','OTP is shared to your email address');
         }else{
           this.helperService.showhideheadsidefoot = true;
           this.router.navigate(['dashboard']);
+          this.helperService.presentToast('success','OTP verified');
         }
         console.log(response);
       },
       (error:any) => {
         console.log(error);
+        this.helperService.presentToast('error',error.error.error.msg)
       }
     )
   }
@@ -78,10 +81,11 @@ export class RegisterComponent {
       (response:any) => {
         this.startTimer();
         console.log(response);
-
+        this.helperService.presentToast('info','Resending OTP')
       },
       (error:any) => {
         console.log(error);
+        this.helperService.presentToast('error',error.error.error.msg)
       }
     )
   }
