@@ -11,7 +11,15 @@ export class AppComponent {
   constructor(public helperService: HelperService){
     
   }
-  ngOnInit(){
-    
+  isOnline!: boolean;
+
+  ngOnInit() {
+    this.checkOnlineStatus();
+    window.addEventListener('online', () => this.checkOnlineStatus());
+    window.addEventListener('offline', () => this.checkOnlineStatus());
+  }
+
+  checkOnlineStatus() {
+    this.isOnline = navigator.onLine;
   }
 }

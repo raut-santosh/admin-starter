@@ -22,7 +22,16 @@ export class RegisterComponent {
     this.timer = 60; // Initial timer value in seconds
     this.isResendDisabled = false; // Resend button status
   }
-  ngOnInit(){
+  isOnline!: boolean;
+
+  ngOnInit() {
+    this.checkOnlineStatus();
+    window.addEventListener('online', () => this.checkOnlineStatus());
+    window.addEventListener('offline', () => this.checkOnlineStatus());
+  }
+
+  checkOnlineStatus() {
+    this.isOnline = navigator.onLine;
   }
 
   startTimer(): void {
